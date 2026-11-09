@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7fb">
+  <title>Основы экономических знаний — тренажёр</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body data-page="home">
+  <div class="shell">
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">Э</span><span>Основы экономических знаний</span></a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">Тёмная тема</button>
+    </header>
+    <main>
+      <section class="intro">
+        <div class="eyebrow">Самостоятельная подготовка</div>
+        <h1>Проверьте знания<br>по экономике</h1>
+        <p>Вопросы из учебной базы. Выберите раздел, тренируйтесь в своём темпе или пройдите экзамен.</p>
+        <div class="intro-footer"><span><strong id="total-count">—</strong> вопросов доступно</span><a href="questions.html">Все вопросы <span aria-hidden="true">↗</span></a></div>
+      </section>
+
+      <section class="workspace" aria-label="Режим тестирования">
+        <div class="tabs" role="tablist" aria-label="Режим">
+          <button id="tab-trainer" class="tab active" type="button" role="tab" aria-selected="true">Тренажёр</button>
+          <button id="tab-exam" class="tab" type="button" role="tab" aria-selected="false">Экзамен</button>
+        </div>
+        <div id="setup" class="setup">
+          <div class="setup-top"><div><div class="eyebrow" id="mode-label">Режим тренировки</div><h2 id="setup-title">Начните с любого раздела</h2></div><span class="section-count" id="section-count">— вопросов</span></div>
+          <label for="module-select">Раздел</label>
+          <select id="module-select"><option value="all">Все разделы</option></select>
+          <p class="setup-note" id="mode-description">После ответа сразу увидите результат и правильные варианты.</p>
+          <button class="primary-button" id="start-button" type="button">Начать тренировку <span aria-hidden="true">→</span></button>
+        </div>
+        <div id="session" hidden></div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>Тренажёр по основам экономических знаний</span><span>Без регистрации и передачи личных данных</span></footer>
+  </div>
+</body>
+</html>

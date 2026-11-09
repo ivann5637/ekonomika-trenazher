@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7fb">
+  <title>Все вопросы — основы экономических знаний</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body data-page="questions">
+  <div class="shell">
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">Э</span><span>Основы экономических знаний</span></a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">Тёмная тема</button>
+    </header>
+    <main>
+      <a class="back-link" href="index.html">← Вернуться к тренажёру</a>
+      <section class="list-heading"><div class="eyebrow">База вопросов</div><h1>Все вопросы</h1><p>Правильные варианты отмечены зелёным.</p></section>
+      <div class="filters"><div><label for="search">Поиск по вопросу</label><input id="search" type="search" placeholder="Введите слово или фразу"></div><div><label for="module-filter">Раздел</label><select id="module-filter"><option value="all">Все разделы</option></select></div></div>
+      <div class="list-summary" id="list-summary" aria-live="polite"></div>
+      <div class="question-list" id="question-list"></div>
+    </main>
+    <footer class="site-footer"><span>Тренажёр по основам экономических знаний</span><span>Источник: Word-база вопросов</span></footer>
+  </div>
+</body>
+</html>
