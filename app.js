@@ -14,13 +14,9 @@
 
   const escapeHTML = text => String(text).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const plural = n => n % 10 === 1 && n % 100 !== 11 ? 'вопрос' : ([2,3,4].includes(n % 10) && ![12,13,14].includes(n % 100) ? 'вопроса' : 'вопросов');
-  const available = items => items.filter(q => !q.issue && q.question && (q.answer || (q.options.length && q.options.some(o => o.correct))));
+  const available = items => items.filter(q => q.question && (q.answer || (q.options.length && q.options.some(o => o.correct))));
   const normalizeAnswer = value => value.trim().replace(/\s+/g, ' ').replace(/[.!?]+$/u, '').toLocaleLowerCase('ru');
-  const optionImage = (option, index) => option.text
-    ? `<span class="option-plain">${escapeHTML(option.text)}</span>`
-    : option.parts?.length
-    ? `<span class="option-words" aria-hidden="true">${option.parts.map(part => `<span class="word-sprite" style="width:${part.w}px;height:${part.h}px;background-image:url('${escapeHTML(option.image)}');background-size:${option.width}px ${option.height}px;background-position:-${part.x}px -${part.y}px"></span>`).join('')}</span>`
-    : `<img src="${escapeHTML(option.image)}" alt="Вариант ${index + 1}" loading="lazy">`;
+  const optionImage = option => `<span class="option-plain">${escapeHTML(option.text)}</span>`;
   const shuffle = items => {
     const copy = [...items];
     for (let i = copy.length - 1; i > 0; i--) {
@@ -92,7 +88,8 @@
     document.getElementById('start-button').addEventListener('click', () => {
       const pool = selection();
       if (!pool.length) return;
-      run = {mode, questions: mode === 'exam' ? shuffle(pool).slice(0, 50) : [...pool], index: 0, correct: 0, selected: [], textAnswer: '', answered: false};
+      const questions = (mode === 'exam' ? shuffle(pool).slice(0, 50) : pool).map(q => ({...q, options: shuffle(q.options)}));
+      run = {mode, questions, index: 0, correct: 0, selected: [], textAnswer: '', answered: false};
       setup.hidden = true;
       session.hidden = false;
       renderQuestion();
@@ -103,7 +100,7 @@
     function renderQuestion() {
       const q = run.questions[run.index];
       const written = Boolean(q.answer);
-      const multiple = !written && q.options.filter(o => o.correct).length > 1;
+      const multiple = !written && q.multiple;
       const percent = Math.round(run.correct / Math.max(run.index, 1) * 100);
       session.innerHTML = `<div class="session-inner">
         <div class="session-top"><span><strong>${run.mode === 'exam' ? 'Экзамен' : 'Тренажёр'}</strong> · Модуль ${q.module}</span><span>Вопрос ${run.index + 1} из ${run.questions.length}</span></div>
